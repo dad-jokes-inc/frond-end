@@ -2,12 +2,12 @@ import React from 'react';
 
 class Login extends React.Component {
     state = {
-        user: "",
-        pass: ""
+        username: "",
+        password: ""
     }
 
     login = () => {
-        localStorage.setItem('user', `${this.state.user}`);
+        localStorage.setItem('username', `${this.state.user}`);
         localStorage.setItem('password', `${this.state.pass}`);
     }
 

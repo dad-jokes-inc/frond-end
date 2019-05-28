@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const StyledHeader = styled.header`
     display: flex;
@@ -28,12 +29,12 @@ const Header = () => {
                 <input placeholder="This is a Search Bar"></input>
             </form>
             <DivChild>
-            <h3>List of Jokes</h3>
-            <h3>User Profile</h3>
+            <h3><Link to="/jokeslist">List of Jokes</Link></h3>
+            <h3><Link to="/userprofile">User Profile</Link></h3>
             </DivChild>
         </CenterDiv>
         <DivChild>
-            <h3>Log In</h3>
+            <h3><Link to="/login">Log In</Link></h3>
             <h3>|</h3>
             <h3>Sign Up</h3>
         </DivChild>
