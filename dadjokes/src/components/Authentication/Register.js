@@ -1,38 +1,39 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {login} from '../../actions';
+import {register} from '../../actions';
 
-class Login extends React.Component {
+class Register extends React.Component {
     state = {
-        credentials: {
         username: "",
         password: ""
-        }
     }
 
-    login = e => {
+    register = e => {
         e.preventDefault();
-        this.props.login(this.state.credentials).then(() => this.props.history.push("/userprofile"));
+        this.props.register(this.state).then(() => this.props.history.push("/userprofile"));
     }
 
     handleChanges = e => {
         this.setState({
-            credentials: {
-            ...this.state.credentials,
+            ...this.state,
             [e.target.name]: e.target.value
-            }
         });
     }
 
 
     render(){
+    if (localStorage.getItem("username")){
+        return (
+            <h3>You are already logged in, {window.localStorage.getItem("username")}</h3>
+        )
+    } 
     return(
         <div>
-            <h1>Login</h1>
-            <form onSubmit={this.login}>
+            <h1>Register</h1>
+            <form onSubmit={this.register}>
                 <input name="username" type="text" placeholder="username" onChange={this.handleChanges}></input>
                 <input name="password" type="text" placeholder="password" onChange={this.handleChanges}></input>
-                <button type="submit">Log in</button>
+                <button type="submit">Register</button>
             </form>
         </div>
     )
@@ -40,7 +41,7 @@ class Login extends React.Component {
 }
 
 const mapActionsToProps = {
-    login
+    register
 }
 
-export default connect(null, mapActionsToProps)(Login);
+export default connect(null, mapActionsToProps)(Register);
