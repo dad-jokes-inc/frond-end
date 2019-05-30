@@ -7,10 +7,10 @@ export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
 export const LOGIN_USER_FAILURE = "LOGIN_USER_FAILURE";
 
 export const login = creds => dispatch => {
-    console.log("Login", creds);
     dispatch({type: LOGIN_USER_START});
     return axios.post(`https://dad-jokes-buildweek.herokuapp.com/api/login`, creds)
     .then(res => {
+        console.log(res)
         localStorage.setItem("username", creds.username)
         localStorage.setItem("password", creds.password)
         localStorage.setItem("token", res.data.token)
@@ -30,8 +30,10 @@ export const register = creds => dispatch => {
     dispatch({type: REGISTER_USER_START});
     return axios.post(`https://dad-jokes-buildweek.herokuapp.com/api/register`, creds)
     .then(res => {
+        console.log(res)
         localStorage.setItem("username", creds.username)
         localStorage.setItem("password", creds.password)
+        localStorage.setItem("token", "registered user")
         dispatch({type: REGISTER_USER_SUCCESS, payload: res.data});
     })
     .catch(err => {
@@ -50,12 +52,28 @@ export const getJokes = () => dispatch => {
         headers: {Authorization: localStorage.getItem("token")}
     })
     .then(res => {
-        console.log("Joke data", res)
+        console.log("get", res)
         dispatch({type: FETCH_JOKES_SUCCESS, payload: res.data});
     })
     .catch(err => {
         console.log(err)
-        dispatch({type: ADDING_JOKES_FAILURE})
+        dispatch({type: FETCH_JOKES_FAILURE})
+    })
+}
+
+export const PUBLIC_JOKES_START = "PUBLIC_JOKES_START";
+export const PUBLIC_JOKES_SUCCESS = "PUBLIC_JOKES_SUCCESS";
+export const PUBLIC_JOKES_FAILURE = "PUBLIC_JOKES_FAILURE";
+
+export const publicJokes = () => dispatch => {
+    dispatch({type: PUBLIC_JOKES_START});
+    return axios.get(`${baseURL}/public`)
+    .then(res => {
+        dispatch({type: PUBLIC_JOKES_SUCCESS, payload: res.data});
+    })
+    .catch(err => {
+        console.log(err)
+        dispatch({type: PUBLIC_JOKES_FAILURE})
     })
 }
 
@@ -69,6 +87,7 @@ export const addJokes = jokes => dispatch => {
         headers: {Authorization: localStorage.getItem("token")}
     })
     .then(res => {
+        console.log("Add", res)
         dispatch({type: ADDING_JOKES_SUCCESS, payload: res.data})
     })
     .catch(err => {
@@ -83,11 +102,11 @@ export const DELETE_JOKES_FAILURE = "DELETE_JOKES_FAILURE";
 
 export const deleteJoke = id => dispatch => {
     dispatch({type: DELETE_JOKES_START});
-    axios.delete(`${baseURL}/jokes/${id}`, {
+    return axios.delete(`${baseURL}/jokes/${id}`, {
         headers: {Authorization: localStorage.getItem("token")}
     })
     .then(res => {
-        console.log(id)
+        console.log("Del", res)
         dispatch({type: DELETE_JOKES_SUCCESS, payload: res.data})
     })
     .catch(err => {
@@ -101,7 +120,8 @@ export const EDIT_JOKES_SUCCESS = "EDIT_JOKES_SUCCESS";
 export const EDIT_JOKES_FAILURE = "EDIT_JOKES_FAILURE";
 
 export const editJoke = joke => dispatch => {
-    axios.put(`${baseURL}/jokes/${joke.id}`, joke, {
+    dispatch({type: EDIT_JOKES_START})
+    return axios.put(`${baseURL}/jokes/${joke.id}`, joke, {
         headers: {Authorization: localStorage.getItem("token")}
     })
     .then(res => {

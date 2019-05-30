@@ -25,13 +25,9 @@ const Header = () => {
     <StyledHeader>
         <h1>Dad Jokes!</h1>
         <CenterDiv>
-            <form>
-                <input placeholder="This is a Search Bar"></input>
-            </form>
             <DivChild>
                 <h3><Link to="/">List of Jokes</Link></h3>
                 <h3><Link to="/userprofile">User Profile</Link></h3>
-                {/* <h3><Link to="/jokeslistprivate">Favorites</Link></h3> */}
             </DivChild>
         </CenterDiv>
         <DivChild>

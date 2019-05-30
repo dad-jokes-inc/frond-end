@@ -2,6 +2,9 @@ import {
     FETCH_JOKES_START,
     FETCH_JOKES_SUCCESS,
     FETCH_JOKES_FAILURE,
+    PUBLIC_JOKES_START,
+    PUBLIC_JOKES_SUCCESS,
+    PUBLIC_JOKES_FAILURE,
     ADDING_JOKES_START,
     ADDING_JOKES_SUCCESS,
     ADDING_JOKES_FAILURE,
@@ -19,7 +22,7 @@ const initialState = {
     addingJokes: false,
     deletingJokes: false,
     editingJokes: false,
-
+    publickingJokes: false,
     jokes: [],
     userJokes: [],
 }
@@ -37,10 +40,30 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 fetchingJokes: false,
-                jokes: action.payload
+                userJokes: action.payload
             }
         }
         case FETCH_JOKES_FAILURE: {
+            return {
+                ...state,
+                error: "There is an error fetching jokes"
+            }
+        }
+        case PUBLIC_JOKES_START: {
+            return {
+                ...state,
+                publickingJokes: true,
+                error: "",
+            }
+        }
+        case PUBLIC_JOKES_SUCCESS: {
+            return {
+                ...state,
+                publickingJokes: false,
+                jokes: action.payload
+            }
+        }
+        case PUBLIC_JOKES_FAILURE: {
             return {
                 ...state,
                 error: "There is an error fetching jokes"
@@ -57,7 +80,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 addingJokes: false,
-                jokes: action.payload
             }
         }
         case ADDING_JOKES_FAILURE: {
@@ -77,7 +99,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 deletingJokes: false,
-                jokes: action.payload
             }
         }
         case DELETE_JOKES_FAILURE: {
@@ -97,7 +118,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 editingJokes: false,
-                jokes: action.payload
             }
         }
         case EDIT_JOKES_FAILURE: {

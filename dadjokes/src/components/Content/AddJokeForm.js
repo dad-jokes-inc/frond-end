@@ -1,12 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {addJokes} from '../../actions';
+import {addJokes, getJokes} from '../../actions';
 
 class AddJokeForm extends React.Component {
     state = {
         newJoke: {
-            joke: "",
-        }
+            joke: ""
+        },
+        addingBool: false,
     }
 
     handleChanges = e => {
@@ -20,15 +21,30 @@ class AddJokeForm extends React.Component {
 
     addJoke = e => {
         e.preventDefault();
-        this.props.addJokes(this.state.newJoke).then(() => this.props.history.push("/"));
+        this.props.addJokes(this.state.newJoke).then(() => this.props.getJokes())
         this.setState({
             newJoke: {
                 joke: "",
-            }
+            },
+            addingBool: false,
+        })
+    }
+
+    toggleAdd = e => {
+        e.preventDefault();
+        this.setState({
+            addingBool: true
         })
     }
 
     render(){
+        if (!this.state.addingBool) {
+            return(
+                <div>
+                    <button onClick={this.toggleAdd}>Add Joke</button>
+                </div>
+            )
+        }
     return(
         <div>
             <form onSubmit={this.addJoke}>
@@ -49,4 +65,4 @@ const mapStateToProps = ({addingJokes, jokes}) => ({
     jokes, addingJokes
 })
 
-export default connect(mapStateToProps, {addJokes})(AddJokeForm);
+export default connect(mapStateToProps, {addJokes, getJokes})(AddJokeForm);
