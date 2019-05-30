@@ -26,6 +26,14 @@ class Login extends React.Component {
 
 
     render(){
+    if (localStorage.getItem("username")){
+        return (
+            <div>
+                <h1>Log In</h1>
+                <h3>You are already logged in, {window.localStorage.getItem("username")}</h3>
+            </div>
+        )
+    } 
     return(
         <div>
             <h1>Login</h1>

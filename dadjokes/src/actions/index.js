@@ -42,38 +42,57 @@ export const register = creds => dispatch => {
     })
 }
 
-export const FETCH_JOKES_START = "FETCH_JOKES_START";
-export const FETCH_JOKES_SUCCESS = "FETCH_JOKES_SUCCESS";
-export const FETCH_JOKES_FAILURE = "FETCH_JOKES_FAILURE";
+export const FETCH_JOKES_PRIVATE_START = "FETCH_JOKES_PRIVATE_START";
+export const FETCH_JOKES_PRIVATE_SUCCESS = "FETCH_JOKES_PRIVATE_SUCCESS";
+export const FETCH_JOKES_PRIVATE_FAILURE = "FETCH_JOKES_PRIVATE_FAILURE";
 
 export const getJokes = () => dispatch => {
-    dispatch({type: FETCH_JOKES_START});
+    dispatch({type: FETCH_JOKES_PRIVATE_START});
     return axios.get(`${baseURL}/jokes`, {
         headers: {Authorization: localStorage.getItem("token")}
     })
     .then(res => {
         console.log("get", res)
-        dispatch({type: FETCH_JOKES_SUCCESS, payload: res.data});
+        dispatch({type: FETCH_JOKES_PRIVATE_SUCCESS, payload: res.data});
     })
     .catch(err => {
         console.log(err)
-        dispatch({type: FETCH_JOKES_FAILURE})
+        dispatch({type: FETCH_JOKES_PRIVATE_FAILURE})
     })
 }
 
-export const PUBLIC_JOKES_START = "PUBLIC_JOKES_START";
-export const PUBLIC_JOKES_SUCCESS = "PUBLIC_JOKES_SUCCESS";
-export const PUBLIC_JOKES_FAILURE = "PUBLIC_JOKES_FAILURE";
+export const FETCH_JOKES_PUBLIC_START = "FETCH_JOKES_PUBLIC_START";
+export const FETCH_JOKES_PUBLIC_SUCCESS = "FETCH_JOKES_PUBLIC_SUCCESS";
+export const FETCH_JOKES_PUBLIC_FAILURE = "FETCH_JOKES_PUBLIC_FAILURE";
 
 export const publicJokes = () => dispatch => {
-    dispatch({type: PUBLIC_JOKES_START});
+    dispatch({type: FETCH_JOKES_PUBLIC_START});
     return axios.get(`${baseURL}/public`)
     .then(res => {
-        dispatch({type: PUBLIC_JOKES_SUCCESS, payload: res.data});
+        dispatch({type: FETCH_JOKES_PUBLIC_SUCCESS, payload: res.data});
     })
     .catch(err => {
         console.log(err)
-        dispatch({type: PUBLIC_JOKES_FAILURE})
+        dispatch({type: FETCH_JOKES_PUBLIC_FAILURE})
+    })
+}
+
+export const FETCH_JOKES_USER_START = "FETCH_JOKES_USER_START";
+export const FETCH_JOKES_USER_SUCCESS = "FETCH_JOKES_USER_SUCCESS";
+export const FETCH_JOKES_USER_FAILURE = "FETCH_JOKES_USER_FAILURE";
+
+export const userOnlyJokes = (id) => dispatch => {
+    dispatch({type: FETCH_JOKES_USER_START});
+    return axios.get(`${baseURL}/jokes/user/${id}`, {
+        headers: {Authorization: localStorage.getItem("token")}
+    })
+    .then(res => {
+        console.log("USER:", res)
+        dispatch({type: FETCH_JOKES_USER_SUCCESS, payload: res.data});
+    })
+    .catch(err => {
+        console.log(err)
+        dispatch({type: FETCH_JOKES_USER_FAILURE})
     })
 }
 

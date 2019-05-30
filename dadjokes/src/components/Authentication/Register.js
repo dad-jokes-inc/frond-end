@@ -25,11 +25,14 @@ class Register extends React.Component {
 
     render(){
     // console.log("Confirm:", this.state.passwordConfirm, "Pass:", this.state.credentials.password)
-    // if (localStorage.getItem("username")){
-    //     return (
-    //         <h3>You are already logged in, {window.localStorage.getItem("username")}</h3>
-    //     )
-    // } 
+    if (localStorage.getItem("username")){
+        return (
+            <div>
+                <h1>Register</h1>
+                <h3>You are already logged in, {window.localStorage.getItem("username")}</h3>
+            </div>
+        )
+    } 
     return(
         <div>
             <h1>Register</h1>
