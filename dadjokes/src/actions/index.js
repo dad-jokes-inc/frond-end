@@ -10,7 +10,6 @@ export const login = creds => dispatch => {
     dispatch({type: LOGIN_USER_START});
     return axios.post(`https://dad-jokes-buildweek.herokuapp.com/api/login`, creds)
     .then(res => {
-        console.log(res)
         localStorage.setItem("username", creds.username)
         localStorage.setItem("password", creds.password)
         localStorage.setItem("token", res.data.token)
@@ -30,7 +29,6 @@ export const register = creds => dispatch => {
     dispatch({type: REGISTER_USER_START});
     return axios.post(`https://dad-jokes-buildweek.herokuapp.com/api/register`, creds)
     .then(res => {
-        console.log(res)
         localStorage.setItem("username", creds.username)
         localStorage.setItem("password", creds.password)
         dispatch({type: REGISTER_USER_SUCCESS, payload: res.data});
@@ -51,7 +49,6 @@ export const getJokes = () => dispatch => {
         headers: {Authorization: localStorage.getItem("token")}
     })
     .then(res => {
-        console.log("get", res)
         dispatch({type: FETCH_JOKES_PRIVATE_SUCCESS, payload: res.data});
     })
     .catch(err => {
@@ -86,7 +83,6 @@ export const userOnlyJokes = (id) => dispatch => {
         headers: {Authorization: localStorage.getItem("token")}
     })
     .then(res => {
-        console.log("USER:", res)
         dispatch({type: FETCH_JOKES_USER_SUCCESS, payload: res.data});
     })
     .catch(err => {
@@ -105,7 +101,6 @@ export const addJokes = jokes => dispatch => {
         headers: {Authorization: localStorage.getItem("token")}
     })
     .then(res => {
-        console.log("Add", res)
         dispatch({type: ADDING_JOKES_SUCCESS, payload: res.data})
     })
     .catch(err => {
@@ -124,7 +119,6 @@ export const deleteJoke = id => dispatch => {
         headers: {Authorization: localStorage.getItem("token")}
     })
     .then(res => {
-        console.log("Del", res)
         dispatch({type: DELETE_JOKES_SUCCESS, payload: res.data})
     })
     .catch(err => {
@@ -137,13 +131,14 @@ export const EDIT_JOKES_START = "EDIT_JOKES_START";
 export const EDIT_JOKES_SUCCESS = "EDIT_JOKES_SUCCESS";
 export const EDIT_JOKES_FAILURE = "EDIT_JOKES_FAILURE";
 
-export const editJoke = joke => dispatch => {
-    console.log(joke)
+export const editJoke = (joke, id) => dispatch => {
+    console.log("Edit action:", joke)
     dispatch({type: EDIT_JOKES_START})
-    return axios.put(`${baseURL}/jokes/${joke.id}`, joke, {
+    return axios.put(`${baseURL}/jokes/${id}`, joke, {
         headers: {Authorization: localStorage.getItem("token")}
     })
     .then(res => {
+        console.log("Edit Action,", res)
         dispatch({type: EDIT_JOKES_SUCCESS, payload: res.data})
     })
     .catch(err => {

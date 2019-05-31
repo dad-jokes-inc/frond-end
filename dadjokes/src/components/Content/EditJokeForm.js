@@ -19,9 +19,12 @@ class EditJokeForm extends React.Component {
     }
 
     editJoke = e => {
-        console.log("editing!")
         e.preventDefault();
-        this.props.editJoke(this.state.editedJoke).then(() => this.props.getJokes())
+        const bananaJoke = {
+            joke: this.state.editedJoke.joke
+        }
+        const jokeID = this.state.editedJoke.id
+        this.props.editJoke(bananaJoke, jokeID).then(() => this.props.getJokes())
         this.setState({
             editingBool: false
         })
@@ -35,6 +38,7 @@ class EditJokeForm extends React.Component {
     }
 
     render(){
+        console.log("Props for editform", this.props.jokeProps)
         if (!this.state.editingBool) {
             return(
                 <div>
