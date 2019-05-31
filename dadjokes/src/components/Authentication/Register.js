@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {register} from '../../actions';
 import './Credentials.css'
+import {Button} from 'reactstrap';
 
 class Register extends React.Component {
     state = {
@@ -43,7 +44,7 @@ class Register extends React.Component {
                 <input name="username" type="text" placeholder="username" onChange={this.handleChanges}></input>
                 <input name="password" type="text" placeholder="password" onChange={this.handleChanges}></input>
                 {/* <input name="passwordConfirm" type="text" placeholder="confirm password" onChange={this.handleChanges}></input> */}
-                <button type="submit">Register</button>
+                <Button type="submit">Register</Button>
             </form>
         </div>
     )

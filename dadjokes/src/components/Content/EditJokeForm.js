@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {getJokes, editJoke} from '../../actions';
+import {Button} from 'reactstrap';
 
 class EditJokeForm extends React.Component {
     state = {
@@ -37,7 +38,7 @@ class EditJokeForm extends React.Component {
         if (!this.state.editingBool) {
             return(
                 <div>
-                    <button onClick={this.toggleEdit}>Edit Joke</button>
+                    <Button onClick={this.toggleEdit}>Edit Joke</Button>
                 </div>
             )
         }
@@ -50,7 +51,7 @@ class EditJokeForm extends React.Component {
                 placeholder="Joke"
                 onChange={this.handleChanges}
                 value={this.state.editedJoke.joke}/>
-                <button>Submit Joke</button>
+                <Button>Submit Joke</Button>
             </form>
         </div>
     )

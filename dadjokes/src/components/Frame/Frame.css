@@ -3,13 +3,10 @@
     color: black;
     text-decoration: none;
     padding: 5px;
-    border-radius: 15%;
+    border-radius: 12.5%;
 }
 .link:hover {
-    border: 2px solid #FFD11C;
     background: #00044A;
     color: #FFD11C;
-}
-.active {
-    text-decoration: underline;
+    text-decoration: none;
 }

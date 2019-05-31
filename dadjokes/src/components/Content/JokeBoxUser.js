@@ -3,7 +3,7 @@ import EditJokeForm from '../Content/EditJokeForm';
 import {connect} from 'react-redux';
 import {getJokes, deleteJoke} from '../../actions';
 import './Jokes.css'
-
+import {Button} from 'reactstrap';
 
 class JokeBoxUser extends React.Component {
 
@@ -25,7 +25,7 @@ class JokeBoxUser extends React.Component {
                 <div className="left-container-user" key={userJoke.id}>
                     <h3>{userJoke.joke}</h3>
                     <EditJokeForm jokeProps={userJoke}/>
-                    <button onClick={(e) => this.deleteJoke(e, userJoke.id)}>Delete Joke</button>
+                    <Button onClick={(e) => this.deleteJoke(e, userJoke.id)}>Delete Joke</Button>
                 </div>
             )
             })}

@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {login} from '../../actions';
+import {Button} from 'reactstrap';
 
 class Login extends React.Component {
     state = {
@@ -40,7 +41,7 @@ class Login extends React.Component {
             <form onSubmit={this.login}>
                 <input name="username" type="text" placeholder="username" onChange={this.handleChanges}></input>
                 <input name="password" type="password" placeholder="password" onChange={this.handleChanges}></input>
-                <button type="submit">Log in</button>
+                <Button color="secondary">Log in</Button>
             </form>
         </div>
     )

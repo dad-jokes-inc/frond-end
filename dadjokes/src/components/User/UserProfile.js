@@ -4,6 +4,7 @@ import {getJokes, deleteJoke, editJoke} from '../../actions';
 import AddJokeForm from '../Content/AddJokeForm';
 import JokeBoxUser from '../Content/JokeBoxUser';
 import './User.css'
+import {Button} from 'reactstrap';
 
 class UserProfile extends React.Component {
     componentDidMount(id){
@@ -33,7 +34,7 @@ class UserProfile extends React.Component {
             <h4>Your password is {window.localStorage.getItem("password")}</h4>
             <AddJokeForm />
             <JokeBoxUser userJokesProps={this.props.userJokes}/>
-            <button onClick={this.logOut}>Logout</button>
+            <Button onClick={this.logOut}>Logout</Button>
         </div>
     )
     }
