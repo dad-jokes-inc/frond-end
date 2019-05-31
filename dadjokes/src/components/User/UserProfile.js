@@ -11,16 +11,6 @@ class UserProfile extends React.Component {
         this.props.getJokes(id);
     }
 
-    // deleteJoke = (e, id) => {
-    //     e.preventDefault();
-    //     this.props.deleteJoke(id).then(() => this.props.getJokes())
-    // }
-
-    // editJoke = (e, joke) => {
-    //     e.preventDefault();
-    //     this.props.editJoke(joke).then(() => this.props.getJokes())
-    // }
-
     logOut = e => {
         e.preventDefault();
         localStorage.clear();

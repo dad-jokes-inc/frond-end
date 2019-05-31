@@ -38,7 +38,6 @@ class EditJokeForm extends React.Component {
     }
 
     render(){
-        console.log("Props for editform", this.props.jokeProps)
         if (!this.state.editingBool) {
             return(
                 <div>

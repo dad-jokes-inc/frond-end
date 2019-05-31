@@ -132,13 +132,11 @@ export const EDIT_JOKES_SUCCESS = "EDIT_JOKES_SUCCESS";
 export const EDIT_JOKES_FAILURE = "EDIT_JOKES_FAILURE";
 
 export const editJoke = (joke, id) => dispatch => {
-    console.log("Edit action:", joke)
     dispatch({type: EDIT_JOKES_START})
     return axios.put(`${baseURL}/jokes/${id}`, joke, {
         headers: {Authorization: localStorage.getItem("token")}
     })
     .then(res => {
-        console.log("Edit Action,", res)
         dispatch({type: EDIT_JOKES_SUCCESS, payload: res.data})
     })
     .catch(err => {
