@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {getJokes, editJoke} from '../../actions';
 
 class EditJokeForm extends React.Component {
     state = {
@@ -16,7 +18,9 @@ class EditJokeForm extends React.Component {
     }
 
     editJoke = e => {
-        this.props.editJoke(e, this.state.editedJoke)
+        console.log("editing!")
+        e.preventDefault();
+        this.props.editJoke(this.state.editedJoke).then(() => this.props.getJokes())
         this.setState({
             editingBool: false
         })
@@ -46,11 +50,11 @@ class EditJokeForm extends React.Component {
                 placeholder="Joke"
                 onChange={this.handleChanges}
                 value={this.state.editedJoke.joke}/>
-                <button type="submit">Submit Joke</button>
+                <button>Submit Joke</button>
             </form>
         </div>
     )
     }
 }
 
-export default EditJokeForm;
+export default connect(null, {editJoke, getJokes})(EditJokeForm);

@@ -1,4 +1,5 @@
 import React from 'react';
+import './Jokes.css'
 import {connect} from 'react-redux';
 import {getJokes, deleteJoke, editJoke, publicJokes} from '../../actions';
 import JokeBoxPublic from './JokeBoxPublic';
@@ -37,8 +38,8 @@ class JokeHomeContainer extends React.Component {
     render(){
     console.log(this.state.jokesData)
     return (
-        <div>
-            <div>
+        <div class="container">
+            <div class="center-container">
                 <h1>Welcome to Dad Jokes!</h1>
                 <form>
                     <h5>Note: searching is <strong>case-sensitive</strong></h5>

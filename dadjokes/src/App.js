@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
+import './App.css'
 
 /* These are the public components being called in */
 import JokeHomeContainer from './components/Content/JokeHomeContainer';
@@ -21,7 +22,7 @@ class App extends React.Component {
 
   render(){
   return (
-    <div>
+    <div className="app">
       <Header />{/*This renders the header */}
       <Route exact path="/" component={JokeHomeContainer} />
       <Route path="/register" component={Register} />

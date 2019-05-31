@@ -1,10 +1,16 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {userOnlyJokes, deleteJoke, editJoke} from '../../actions';
 import EditJokeForm from '../Content/EditJokeForm';
+import {connect} from 'react-redux';
+import {getJokes, deleteJoke} from '../../actions';
+import './Jokes.css'
 
 
 class JokeBoxUser extends React.Component {
+
+    deleteJoke = (e, id) => {
+        e.preventDefault();
+        this.props.deleteJoke(id).then(() => this.props.getJokes())
+    }
 
     render(){
     if (this.props.userJokesProps === 0){
@@ -16,10 +22,10 @@ class JokeBoxUser extends React.Component {
         <div>
             {this.props.userJokesProps.map(userJoke => {
             return (
-                <div key={userJoke.id}>
+                <div className="left-container-user" key={userJoke.id}>
                     <h3>{userJoke.joke}</h3>
-                    <EditJokeForm jokeProps={userJoke} editJoke={this.props.editJokeProps}/>
-                    <button onClick={() => this.props.deleteJokeProps(userJoke.id)}>Delete Joke</button>
+                    <EditJokeForm jokeProps={userJoke}/>
+                    <button onClick={(e) => this.deleteJoke(e, userJoke.id)}>Delete Joke</button>
                 </div>
             )
             })}
@@ -29,4 +35,4 @@ class JokeBoxUser extends React.Component {
 }
 
 
-export default connect(null, {userOnlyJokes, deleteJoke, editJoke})(JokeBoxUser);
+export default connect(null, {getJokes, deleteJoke})(JokeBoxUser);

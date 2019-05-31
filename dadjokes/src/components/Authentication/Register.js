@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {register} from '../../actions';
+import './Credentials.css'
 
 class Register extends React.Component {
     state = {
@@ -27,16 +28,17 @@ class Register extends React.Component {
     // console.log("Confirm:", this.state.passwordConfirm, "Pass:", this.state.credentials.password)
     if (localStorage.getItem("username")){
         return (
-            <div>
+            <div className="container">
                 <h1>Register</h1>
                 <h3>You are already logged in, {window.localStorage.getItem("username")}</h3>
             </div>
         )
     } 
     return(
-        <div>
+        <div className="container">
             <h1>Register</h1>
             <p>{this.state.error}</p>
+            <p>You will need to log in after registering.</p>
             <form onSubmit={this.register}>
                 <input name="username" type="text" placeholder="username" onChange={this.handleChanges}></input>
                 <input name="password" type="text" placeholder="password" onChange={this.handleChanges}></input>

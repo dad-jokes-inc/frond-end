@@ -33,7 +33,6 @@ export const register = creds => dispatch => {
         console.log(res)
         localStorage.setItem("username", creds.username)
         localStorage.setItem("password", creds.password)
-        localStorage.setItem("token", "registered user")
         dispatch({type: REGISTER_USER_SUCCESS, payload: res.data});
     })
     .catch(err => {
@@ -139,6 +138,7 @@ export const EDIT_JOKES_SUCCESS = "EDIT_JOKES_SUCCESS";
 export const EDIT_JOKES_FAILURE = "EDIT_JOKES_FAILURE";
 
 export const editJoke = joke => dispatch => {
+    console.log(joke)
     dispatch({type: EDIT_JOKES_START})
     return axios.put(`${baseURL}/jokes/${joke.id}`, joke, {
         headers: {Authorization: localStorage.getItem("token")}
