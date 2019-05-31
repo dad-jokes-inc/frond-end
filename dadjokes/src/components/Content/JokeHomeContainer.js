@@ -1,13 +1,14 @@
 import React from 'react';
+import './Jokes.css'
 import {connect} from 'react-redux';
 import {getJokes, deleteJoke, editJoke, publicJokes} from '../../actions';
 import JokeBoxPublic from './JokeBoxPublic';
-import JokeBoxUser from './JokeBoxUser';
+import JokeBoxPrivate from './JokeBoxPrivate';
 
 class JokeHomeContainer extends React.Component {
     state = {
         filteredJokes: [],
-        filteredUserJokes: [],
+        filteredPrivateJokes: [],
     }
 
     componentDidMount(){
@@ -16,35 +17,37 @@ class JokeHomeContainer extends React.Component {
     }
 
     handleSearch = (event) => {
-        console.log("Searching!")
+        // eslint-disable-next-line
         const joking = this.props.jokes.filter(j => {
             if (j.publicJoke.includes(event.target.value)) {
                 return j;
             }
         })
-        const userJoking = this.props.userJokes.filter(u => {
+        // eslint-disable-next-line
+        const privateJoking = this.props.privateJokes.filter(u => {
             if (u.joke.includes(event.target.value)) {
                 return u;
             }
         })
         this.setState({
             filteredJokes: joking,
-            filteredUserJokes: userJoking,
+            filteredPrivateJokes: privateJoking,
         })
     }
 
     render(){
     console.log(this.state.jokesData)
     return (
-        <div>
-            <div>
+        <div class="container">
+            <div class="center-container">
                 <h1>Welcome to Dad Jokes!</h1>
                 <form>
+                    <h5>Note: searching is <strong>case-sensitive</strong></h5>
                     <input onChange={this.handleSearch} placeholder="This is a Search Bar"></input>
                 </form>
             </div>
         <JokeBoxPublic jokeyProps={this.state.filteredJokes.length > 0 ? this.state.filteredJokes : this.props.jokes} />
-        <JokeBoxUser userJokeyProps={this.state.filteredUserJokes.length > 0 ? this.state.filteredUserJokes : this.props.userJokes} />
+        <JokeBoxPrivate privateJokeyProps={this.state.filteredPrivateJokes.length > 0 ? this.state.filteredPrivateJokes : this.props.privateJokes} />
         </div>
     )
     }
@@ -54,7 +57,7 @@ const mapStateToProps = state => ({
     jokes: state.jokes,
     fetchingJokes: state.fetchingJokes,
     publickingJokes: state.publickingJokes,
-    userJokes: state.userJokes
+    privateJokes: state.privateJokes
 })
 
 export default connect(mapStateToProps, {publicJokes, getJokes, deleteJoke, editJoke})(JokeHomeContainer);

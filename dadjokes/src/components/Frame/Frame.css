@@ -1,0 +1,12 @@
+.link {
+    background: #FFD11C;
+    color: black;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 12.5%;
+}
+.link:hover {
+    background: #00044A;
+    color: #FFD11C;
+    text-decoration: none;
+}

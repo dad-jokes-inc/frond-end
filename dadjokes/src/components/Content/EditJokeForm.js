@@ -1,4 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {getJokes, editJoke} from '../../actions';
+import {Button} from 'reactstrap';
 
 class EditJokeForm extends React.Component {
     state = {
@@ -16,7 +19,12 @@ class EditJokeForm extends React.Component {
     }
 
     editJoke = e => {
-        this.props.editJoke(e, this.state.editedJoke)
+        e.preventDefault();
+        const bananaJoke = {
+            joke: this.state.editedJoke.joke
+        }
+        const jokeID = this.state.editedJoke.id
+        this.props.editJoke(bananaJoke, jokeID).then(() => this.props.getJokes())
         this.setState({
             editingBool: false
         })
@@ -33,7 +41,7 @@ class EditJokeForm extends React.Component {
         if (!this.state.editingBool) {
             return(
                 <div>
-                    <button onClick={this.toggleEdit}>Edit Joke</button>
+                    <Button onClick={this.toggleEdit}>Edit Joke</Button>
                 </div>
             )
         }
@@ -46,11 +54,11 @@ class EditJokeForm extends React.Component {
                 placeholder="Joke"
                 onChange={this.handleChanges}
                 value={this.state.editedJoke.joke}/>
-                <button type="submit">Submit Joke</button>
+                <Button>Submit Joke</Button>
             </form>
         </div>
     )
     }
 }
 
-export default EditJokeForm;
+export default connect(null, {editJoke, getJokes})(EditJokeForm);

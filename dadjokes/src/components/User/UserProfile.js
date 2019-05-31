@@ -1,22 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {getJokes, deleteJoke, editJoke} from '../../actions';
-import EditJokeForm from '../Content/EditJokeForm';
 import AddJokeForm from '../Content/AddJokeForm';
+import JokeBoxUser from '../Content/JokeBoxUser';
+import './User.css'
+import {Button} from 'reactstrap';
 
 class UserProfile extends React.Component {
-    componentDidMount(){
-        this.props.getJokes();
-    }
-    
-    deleteJoke = id => {
-        this.props.deleteJoke(id).then(() => this.props.getJokes())
+    componentDidMount(id){
+        this.props.getJokes(id);
     }
 
-    editJoke = (e, joke) => {
-        e.preventDefault();
-        this.props.editJoke(joke).then(() => this.props.getJokes())
-    }
     logOut = e => {
         e.preventDefault();
         localStorage.clear();
@@ -25,26 +19,18 @@ class UserProfile extends React.Component {
 
     render(){
     return (
-        <div>
+        <div className="container">
             <h1>Hello {window.localStorage.getItem("username")}</h1>
             <h4>Your password is {window.localStorage.getItem("password")}</h4>
             <AddJokeForm />
-            {this.props.userJokes.map(joke => {
-        return (
-            <div key={joke.id}>
-                <h3>{joke.joke}</h3>
-                <EditJokeForm jokeProps={joke} editJoke={this.editJoke}/>
-                <button onClick={() => this.deleteJoke(joke.id)}>Delete Joke</button>
-            </div>
-        )
-        })}
-            <button onClick={this.logOut}>Logout</button>
+            <JokeBoxUser userJokesProps={this.props.userJokes}/>
+            <Button onClick={this.logOut}>Logout</Button>
         </div>
     )
     }
 }
 const mapStateToProps = state => ({
-    userJokes: state.userJokes,
+    userJokes: state.privateJokes,
     fetchingJokes: state.fetchingJokes
 })
 

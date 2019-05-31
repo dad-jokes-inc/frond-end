@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import './Frame.css';
 
 const StyledHeader = styled.header`
     display: flex;
@@ -8,6 +9,11 @@ const StyledHeader = styled.header`
     align-items: center;
     border-bottom: 3px dashed black;
     margin-bottom: 25px;
+    background-color: #00044A;
+    color: white;
+    h1 {
+        font-family: cursive;
+    }
 `;
 const CenterDiv = styled.div`
     margin: 0;
@@ -16,6 +22,7 @@ const CenterDiv = styled.div`
 const DivChild = styled.div`
     display: flex;
     h3 {
+        font-family: sans-serif;
         padding: 0px 5px 0px 5px;
     }
 `
@@ -23,17 +30,16 @@ const DivChild = styled.div`
 const Header = () => {
     return(
     <StyledHeader>
-        <h1>Dad Jokes!</h1>
+        <h1>Dad Jokes Inc!</h1>
         <CenterDiv>
             <DivChild>
-                <h3><Link to="/">List of Jokes</Link></h3>
-                <h3><Link to="/userprofile">User Profile</Link></h3>
+                <h3><Link className="link" to="/">List of Jokes</Link></h3>
+                <h3><Link className="link" to="/userprofile">User Profile</Link></h3>
             </DivChild>
         </CenterDiv>
         <DivChild>
-            <h3><Link to="/login">Log In</Link></h3>
-            <h3>|</h3>
-            <h3><Link to="/register">Sign Up</Link></h3>
+            <h3><Link className="link" to="/login">Log In</Link></h3>
+            <h3><Link className="link" to="/register">Sign Up</Link></h3>
         </DivChild>
     </StyledHeader>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {login} from '../../actions';
+import {Button} from 'reactstrap';
 
 class Login extends React.Component {
     state = {
@@ -26,13 +27,21 @@ class Login extends React.Component {
 
 
     render(){
+    if (localStorage.getItem("token")){
+        return (
+            <div className="container">
+                <h1>Log In</h1>
+                <h3>You are already logged in, {window.localStorage.getItem("username")}</h3>
+            </div>
+        )
+    } 
     return(
-        <div>
+        <div className="container">
             <h1>Login</h1>
             <form onSubmit={this.login}>
                 <input name="username" type="text" placeholder="username" onChange={this.handleChanges}></input>
                 <input name="password" type="password" placeholder="password" onChange={this.handleChanges}></input>
-                <button type="submit">Log in</button>
+                <Button color="secondary">Log in</Button>
             </form>
         </div>
     )

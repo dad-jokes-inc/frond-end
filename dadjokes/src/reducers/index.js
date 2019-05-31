@@ -1,10 +1,10 @@
 import {
-    FETCH_JOKES_START,
-    FETCH_JOKES_SUCCESS,
-    FETCH_JOKES_FAILURE,
-    PUBLIC_JOKES_START,
-    PUBLIC_JOKES_SUCCESS,
-    PUBLIC_JOKES_FAILURE,
+    FETCH_JOKES_PRIVATE_START,
+    FETCH_JOKES_PRIVATE_SUCCESS,
+    FETCH_JOKES_PRIVATE_FAILURE,
+    FETCH_JOKES_PUBLIC_START,
+    FETCH_JOKES_PUBLIC_SUCCESS,
+    FETCH_JOKES_PUBLIC_FAILURE,
     ADDING_JOKES_START,
     ADDING_JOKES_SUCCESS,
     ADDING_JOKES_FAILURE,
@@ -13,7 +13,10 @@ import {
     DELETE_JOKES_FAILURE,
     EDIT_JOKES_START,
     EDIT_JOKES_SUCCESS,
-    EDIT_JOKES_FAILURE
+    EDIT_JOKES_FAILURE,
+    FETCH_JOKES_USER_START,
+    FETCH_JOKES_USER_SUCCESS,
+    FETCH_JOKES_USER_FAILURE
 } from '../actions';
 
 const initialState = {
@@ -23,47 +26,49 @@ const initialState = {
     deletingJokes: false,
     editingJokes: false,
     publickingJokes: false,
+    userOnlyJokes: false,
     jokes: [],
+    privateJokes: [],
     userJokes: [],
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_JOKES_START: {
+        case FETCH_JOKES_PRIVATE_START: {
             return {
                 ...state,
                 fetchingJokes: true,
                 error: "",
             }
         }
-        case FETCH_JOKES_SUCCESS: {
+        case FETCH_JOKES_PRIVATE_SUCCESS: {
             return {
                 ...state,
                 fetchingJokes: false,
-                userJokes: action.payload
+                privateJokes: action.payload
             }
         }
-        case FETCH_JOKES_FAILURE: {
+        case FETCH_JOKES_PRIVATE_FAILURE: {
             return {
                 ...state,
                 error: "There is an error fetching jokes"
             }
         }
-        case PUBLIC_JOKES_START: {
+        case FETCH_JOKES_PUBLIC_START: {
             return {
                 ...state,
                 publickingJokes: true,
                 error: "",
             }
         }
-        case PUBLIC_JOKES_SUCCESS: {
+        case FETCH_JOKES_PUBLIC_SUCCESS: {
             return {
                 ...state,
                 publickingJokes: false,
                 jokes: action.payload
             }
         }
-        case PUBLIC_JOKES_FAILURE: {
+        case FETCH_JOKES_PUBLIC_FAILURE: {
             return {
                 ...state,
                 error: "There is an error fetching jokes"
@@ -124,6 +129,28 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: "Failure to edit joke"
+            }
+        }
+        case FETCH_JOKES_USER_START: {
+            return {
+                ...state,
+                userOnlyJokes: true,
+                error: "",
+            }
+        }
+        case FETCH_JOKES_USER_SUCCESS: {
+            return {
+                ...state,
+                userOnlyJokes: false,
+                userJokes: action.payload,
+                error: "",
+            }
+        }
+        case FETCH_JOKES_USER_FAILURE: {
+            return {
+                ...state,
+                userOnlyJokes: false,
+                error: "There was an error receiving jokes"
             }
         }
         default: 

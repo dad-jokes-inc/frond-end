@@ -1,20 +1,38 @@
 import React from 'react';
+import EditJokeForm from '../Content/EditJokeForm';
+import {connect} from 'react-redux';
+import {getJokes, deleteJoke} from '../../actions';
+import './Jokes.css'
+import {Button} from 'reactstrap';
 
 class JokeBoxUser extends React.Component {
+
+    deleteJoke = (e, id) => {
+        e.preventDefault();
+        this.props.deleteJoke(id).then(() => this.props.getJokes())
+    }
+
     render(){
+    if (this.props.userJokesProps === 0){
+        return (
+            <h3>You haven't added any jokes!</h3>
+        )
+    }
     return (
         <div>
-        <h3>{this.props.userJokeyProps.length > 0 ? "" : `For more jokes, please register or log in!`}</h3>
-                {this.props.userJokeyProps.map(userJoke => {
-                return (
-                    <div key={userJoke.id}>
-                        <span><h3>{userJoke.joke}</h3><h5>by User #{userJoke.user_id}</h5></span> 
-                    </div>
-                )
-                })}
+            {this.props.userJokesProps.map(userJoke => {
+            return (
+                <div className="left-container-user" key={userJoke.id}>
+                    <h3>{userJoke.joke}</h3>
+                    <EditJokeForm jokeProps={userJoke}/>
+                    <Button onClick={(e) => this.deleteJoke(e, userJoke.id)}>Delete Joke</Button>
+                </div>
+            )
+            })}
         </div>
     )
     }
 }
 
-export default JokeBoxUser;
+
+export default connect(null, {getJokes, deleteJoke})(JokeBoxUser);
